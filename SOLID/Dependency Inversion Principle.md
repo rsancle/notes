@@ -48,6 +48,8 @@ class MySQLDB implements DBInterface {}
 class MongoDB implements DBInterface {}
 
 ```
+# Exceptions
+Not always is needed to inject interfaces. For example, the controller could recieve an implementation since it includes the bussiness logic. Business logic may change since we decide how it must work. DIP must be applied usually in I/O actions, since it could need a change depending on database versions for example.
 
 ## References
 -https://dev.to/tamerlang/understanding-solid-principles-dependency-inversion-1b0f
