@@ -152,3 +152,28 @@ class OCPDemo
   }
 }
 ```
+
+## Another example
+In this case it is easer to understand. The following class uses a parser builder to parse an item. We know how it has to be made but not how it will be implemented. So we create an abstarct class with the logic of how elements will be parsed, but with an abstract builder method that will handle the parse action depending on the implementation. We shouldn't modify the abstract class so it's closed, but it is opened to its extension implementing new classes.
+ ```
+ abstract class FeedStockCounter {
+    totalStock(feed: Feed): number {
+        const flowers = this.buildParser().parse(feed);
+        return this.countTotalStock(flowers);
+    }
+
+    private countTotalStock(flowers: Flower[]): number {
+        return flowers.reduce((acc, flower) => {
+            return acc + flower.totalStock();
+        }, 0);
+    }
+
+    protected abstract buildParser(): FeedParser;
+}
+
+class FeedStockCounterCsv extends FeedStockCounter {
+    protected buildParser() {
+        return new FeedParserCsv();
+    }
+}
+```
